@@ -1181,31 +1181,42 @@ ws.on('message', function message(data) {
 ------------------------------------------------------------------------------------
 
 
-// import './App.css';
+
+
+
+
+import React, {useState} from 'react'
+import './App.css'
+
 function App() {
-  return (
-    <div style={{ maxWidth: '400px', margin: 'auto', padding: '2rem' }}>
-    <h2>Login</h2>
-    <form>
-      <div >
-        <label>Email:</label><br />
-        <input
-          type="email"
-          required
-        />
+
+  const [formData, setFormData] = useState({'username': '', 'password':''});
+
+  const handleChange  = (e) => {
+    const {name, value} = e.target;
+    setFormData({...formData, [name]:value})
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    alert(`Logged in as ${formData.username}`)
+  }
+
+  return <div className='App'>
+    <form onSubmit={handleSubmit} className='login-form'>
+      <h1>Sign In</h1>
+      <div className='component'>
+        <label htmlFor='username'>username:</label>
+        <input type='text' name='username' value={formData.username} onChange={handleChange} className='input' required />
       </div>
-      <div style={{ marginBottom: '1rem' }}>
-        <label>Password:</label><br />
-        <input
-          type="password"
-          required
-        />
+      <div className='component'>
+        <label htmlFor='password'>password:</label>
+        <input type='password' name='password' value={formData.password} onChange={handleChange} className='input' required />
       </div>
-      <button type="submit" >Login</button>
+      <div>
+        <button type='submit' className='submit'>Submit</button>
+      </div>
     </form>
   </div>
-
-  );
 }
 
 export default App;
